@@ -14,7 +14,7 @@ public class Servidor {
 			
 			ServerSocket servidor = new ServerSocket(2787);
 			Socket testes = servidor.accept();
-			InputStream entrada = testes.getInputStream();
+			InputStream entrada =  testes.getInputStream();
 			InputStreamReader lendo = new InputStreamReader(entrada);
 			BufferedReader buffer = new BufferedReader(lendo);
 			while (true) {

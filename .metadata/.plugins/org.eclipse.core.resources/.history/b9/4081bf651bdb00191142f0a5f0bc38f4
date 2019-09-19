@@ -1,22 +1,15 @@
 package aula_servidores;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import org.omg.CORBA.portable.InputStream;
-
 public class Servidor {
 	public static void main(String[] args) throws IOException {
-			
+		
 			ServerSocket servidor = new ServerSocket(2787);
-			Socket testes = servidor.accept();
-			InputStream entrada = testes.getInputStream();
-			InputStreamReader lendo = new InputStreamReader(entrada);
-			BufferedReader buffer = new BufferedReader(lendo);
+//			Arquivos arquivo = null;
 			while (true) {
 			System.out.println("Porta 2787 aberta!");
 			Socket cliente = servidor.accept();

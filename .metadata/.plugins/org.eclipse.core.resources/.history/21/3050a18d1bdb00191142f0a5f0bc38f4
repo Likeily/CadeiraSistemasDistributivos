@@ -1,6 +1,5 @@
 package aula_servidores;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -16,7 +15,6 @@ public class Servidor {
 			Socket testes = servidor.accept();
 			InputStream entrada = testes.getInputStream();
 			InputStreamReader lendo = new InputStreamReader(entrada);
-			BufferedReader buffer = new BufferedReader(lendo);
 			while (true) {
 			System.out.println("Porta 2787 aberta!");
 			Socket cliente = servidor.accept();
