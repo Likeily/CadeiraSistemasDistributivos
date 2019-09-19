@@ -1,0 +1,28 @@
+package aula_servidores;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Servidor {
+    public static void main(String[] args) throws IOException {
+    	while (true);
+        ServerSocket servidor = new ServerSocket(2787);
+        System.out.println("Porta 2787 aberta!");
+
+        Socket cliente = servidor.accept();
+        System.out.println("Cliente conectando " +     
+            cliente.getInetAddress().getHostAddress());
+
+        Scanner ler = new Scanner(cliente.getInputStream());
+        while (ler.hasNextLine()) {
+            System.out.println(ler.nextLine());
+        }
+
+        ler.close();
+        servidor.close();
+        cliente.close();
+    }
+    }
+}
