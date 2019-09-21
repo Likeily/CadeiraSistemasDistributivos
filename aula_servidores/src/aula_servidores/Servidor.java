@@ -1,36 +1,33 @@
 package aula_servidores;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
-
-import org.omg.CORBA.portable.InputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class Servidor {
-	public static void main(String[] args) throws IOException {
-			
-			ServerSocket servidor = new ServerSocket(2787);
-			Socket testes = servidor.accept();
-			InputStream entrada = testes.getInputStream();
-			InputStreamReader lendo = new InputStreamReader(entrada);
-			BufferedReader buffer = new BufferedReader(lendo);
-			while (true) {
-			System.out.println("Porta 2787 aberta!");
-			Socket cliente = servidor.accept();
-			System.out.println("Cliente conectando " + cliente.getInetAddress().getHostAddress());
-//			String rota = input.readLine;
-//			arquivo = new File(rota);
-			Scanner ler = new Scanner(cliente.getInputStream());
-			while (ler.hasNextLine()) {
-				System.out.println(ler.nextLine());
-			}
+	public static void main(String args[]) throws Exception {
 
-			ler.close();
-			servidor.close();
-			cliente.close();
+		DatagramSocket servidorSocket = new DatagramSocket(2787);
+
+		byte[] recebeDados = new byte[1024];
+		byte[] enviaDados = new byte[1024];
+
+		while (true) {
+
+			DatagramPacket recebePacoteInfo = new DatagramPacket(recebeDados, recebeDados.length);
+			servidorSocket.receive(recebePacoteInfo);
+			String sentenca = new String(recebePacoteInfo.getData());
+
+			InetAddress enderecoIP = recebePacoteInfo.getAddress();
+
+			int port = recebePacoteInfo.getPort();
+
+			String capitalizedSentence = sentenca.toUpperCase();
+			enviaDados = capitalizedSentence.getBytes();
+
+			DatagramPacket sendPacket = new DatagramPacket(enviaDados, enviaDados.length, enderecoIP, port);
+
+			servidorSocket.send(sendPacket);
 		}
 	}
 }
